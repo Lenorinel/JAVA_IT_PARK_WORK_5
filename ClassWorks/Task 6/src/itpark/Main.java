@@ -1,6 +1,5 @@
-package itpark;
 
-import static itpark.RationalNumber.*;
+import static RationalNumber.*;
 
 public class Main {
 

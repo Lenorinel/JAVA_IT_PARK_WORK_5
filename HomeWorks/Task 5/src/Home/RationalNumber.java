@@ -17,14 +17,14 @@ public class RationalNumber {
         return t + "|" + r; //реретурн, потому что при запросе метода возвращает значение
     }
 
-    public Double toDouble() { //при запросе метода преобразует в Дабл и выводит результат деления
+    public double toDouble() { //при запросе метода преобразует в Дабл и выводит результат деления
         return (double) t / r;
     }
 
     public int nod(int a, int b) {
         t = a;
         r = b;
-        if(a != 0 && b != 0) {
+        if (a != 0 && b != 0) {
             while (a != 0 & b != 0) {
                 if (a > b) a = a % b;
                 else b = b % a;
@@ -33,8 +33,9 @@ public class RationalNumber {
             return b + a;
         } else return 0;
     }
+
     public void optimize() {
 
-        System.out.println(t + "|" + r + " = " +  (t /= c) + "|" + (r/=c) + " = " + (double)t/r);
-   }
+        System.out.println(t + "|" + r + " = " + (t /= c) + "|" + (r /= c) + " = " + (double) t / r);
+    }
 }
