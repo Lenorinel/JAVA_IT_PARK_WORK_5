@@ -1,9 +1,9 @@
 package Home;
 
-public class bike extends Transport {
+public class Bike extends Transport {
     private double temp, tempIncrease;
 
-    public bike(String model, double fuelConsumption, double tempIncrease) {
+    public Bike(String model, double fuelConsumption, double tempIncrease) {
         super(model,fuelConsumption);
         this.tempIncrease = tempIncrease;
     }
