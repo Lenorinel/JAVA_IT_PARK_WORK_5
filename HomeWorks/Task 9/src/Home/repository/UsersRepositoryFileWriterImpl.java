@@ -7,15 +7,22 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.io.*;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class UsersRepositoryFileWriterImpl implements UsersRepository {
     private FileWriter writer;
     private Reader reader;
     private String fileName;
     private IdGenerator idGenerator;
-    private String line;
+    private String line, line2;
+    private int idFind;
+    private int a = 0;
+    private String name, secondName;
+    private String patt = "yyyy-MM-dd";
+    private LocalDate dateLocal;
 
     public UsersRepositoryFileWriterImpl(String fileName, IdGenerator idGenerator) {
         this.fileName = fileName;
@@ -24,21 +31,51 @@ public class UsersRepositoryFileWriterImpl implements UsersRepository {
 
     @Override
     public User find(int id) {
-        return null;
-//        try {
-//            BufferedReader reader = new BufferedReader(new FileReader(fileName));
-//            while ((line = reader.readLine()) != null) {
-//                if (!line.startsWith(String.valueOf(id))) {
-//                    ;
-//
-//                } else System.out.println("User not found");
-//            }
-//            reader.close();
-//        } catch (IOException ex) {
-//            throw new IllegalStateException(ex);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("userfind.txt", false));
+
+            while ((line = reader.readLine()) != null) {
+                for (String value : line.split(" ")) {
+                    if (value.equals(String.valueOf(id))) {
+
+
+                        writer.write(line);
+                    }
+                }
+            }
+            reader.close();
+            writer.close();
+            BufferedReader read = new BufferedReader(new FileReader("userfind.txt"));
+            line2 = read.readLine();
+            for (String value : line2.split(" ")) {
+                a++;
+                if (a == 1) {
+                    idFind = Integer.parseInt(value);
+                }
+                if (a == 4) {
+                    DateTimeFormatter date = DateTimeFormatter.ofPattern(patt);
+                    dateLocal = LocalDate.parse(value, date);
+                }
+                if (a == 2) {
+                    this.name = value;
+                }
+                if (a == 3) {
+                    this.secondName = value;
+                }
+
+            }
+            User user = new User(name, secondName, dateLocal);
+            reader.close();
+            return user;
+
+
+        } catch (IOException ex) {
+            throw new IllegalStateException(ex);
+
+        }
 
     }
-
 
     @Override
     public void delete(int id) {
@@ -46,9 +83,11 @@ public class UsersRepositoryFileWriterImpl implements UsersRepository {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             BufferedWriter writer = new BufferedWriter(new FileWriter("users2.txt"));
             while ((line = reader.readLine()) != null) {
-                if (!line.startsWith(String.valueOf(id))) {
-                    writer.write(line);
-                    writer.newLine();
+                for (String value : line.split(" ")) {
+                    if (value.equals(String.valueOf(id))) {
+                        writer.write(line);
+                        writer.newLine();
+                    }
                 }
             }
             reader.close();
@@ -64,9 +103,9 @@ public class UsersRepositoryFileWriterImpl implements UsersRepository {
         try {
             writer = new FileWriter(fileName, true);
             writer.write(idGenerator.getNewId() + " "
-                    + user.getBirthDate().toString() + " "
                     + user.getFirstName() + " "
-                    + user.getSecondName() + "\n");
+                    + user.getSecondName() + " "
+                    + user.getBirthDate().toString() + "\n");
             writer.close();
         } catch (IOException e) {
             throw new IllegalStateException(e);
@@ -80,15 +119,17 @@ public class UsersRepositoryFileWriterImpl implements UsersRepository {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             BufferedWriter writer = new BufferedWriter(new FileWriter("user3.txt"));
             while ((line = reader.readLine()) != null) {
-                if (line.startsWith(String.valueOf(user.getId()))) {
-                    writer.write(user.getId() + " "
-                            + user.getBirthDate() + " "
-                            + user.getFirstName() + " "
-                            + user.getSecondName());
-                    writer.newLine();
-                } else {
-                    writer.write(line);
-                    writer.newLine();
+                for (String value : line.split(" ")) {
+                    if (value.equals(String.valueOf(user.getId()))) {
+                        writer.write(user.getId() + " "
+                                + user.getFirstName() + " "
+                                + user.getSecondName() + " "
+                                + user.getBirthDate());
+                        writer.newLine();
+                    } else {
+                        writer.write(line);
+                        writer.newLine();
+                    }
                 }
             }
             reader.close();

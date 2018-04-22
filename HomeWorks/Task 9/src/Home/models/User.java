@@ -3,7 +3,7 @@ package Home.models;
 import java.time.LocalDate;
 
 public class User {
-    private int id;
+    public int id;
     private String firstName;
     private String secondName;
     private LocalDate birthDate;
@@ -18,6 +18,10 @@ public class User {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -28,5 +32,10 @@ public class User {
 
     public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    @Override
+    public String toString() {
+        return this.firstName + " " + this.secondName +" " + this.birthDate;
     }
 }

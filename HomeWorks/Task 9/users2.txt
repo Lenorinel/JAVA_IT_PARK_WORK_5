@@ -1,11 +1,5 @@
+
 1 1932-10-18 Adel Kaym
 2 1992-10-18 Adel2 Kaym1
 3 1993-10-18 Adel3 Kaym2
-5 1932-10-18 Adel Kaym
-6 1992-10-18 Adel2 Kaym1
-7 1993-10-18 Adel3 Kaym2
-8 1994-10-18 Adel4 Kaym3
-9 1932-10-18 Adel Kaym
-10 1992-10-18 Adel2 Kaym1
-11 1993-10-18 Adel3 Kaym2
-12 1994-10-18 Adel4 Kaym31 2016-01-14 Good Boy
+5 1990-01-09 Shit Happend
