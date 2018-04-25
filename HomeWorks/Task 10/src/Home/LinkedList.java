@@ -57,11 +57,12 @@ public class LinkedList<T> implements List<T> {
 
         Node current = top;
 
-        for (int i = 0; i < count; i++ ){
-            if(current.value.equals(element)){
+        for (int i = 0; i < count; i++) {
+            if (current.value.equals(element)) {
                 return true;
-            }else current = current.next;
-        } return false;
+            } else current = current.next;
+        }
+        return false;
     }
 
     @Override
@@ -93,11 +94,17 @@ public class LinkedList<T> implements List<T> {
     @Override
     public boolean delete(T element) {
         Node current = top;
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             if (current.value.equals(element)) {
-                delete(i);
+                for (int a = i; a < count - 1; a++) {
+                    current.value = current.next.value;
+                    current.next.value = null;
+                    current = current.next;
+                }
+                count--;
                 return true;
             } else current = current.next;
-        } return false;
+        }
+        return false;
     }
 }
