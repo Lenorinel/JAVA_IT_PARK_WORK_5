@@ -1,23 +1,37 @@
-CREATE TABLE site_user (
-  id SERIAL PRIMARY KEY ,
-  first_name VARCHAR(20),
-  second_name VARCHAR(20),
-  date_birth DATE,
-  phone_number INTEGER
+CREATE table Product (
+  id SERIAL PRIMARY KEY,
+  name varchar(1000) NOT NULL,
+  category VARCHAR(50) REFERENCES ProductCategory(id),
+  price decimal(10,2) NOT NULL,
+  description varchar(5000) NOT NULL
 );
 
-CREATE TABLE article (
+CREATE TABLE Customer (
   id SERIAL PRIMARY KEY ,
-  name VARCHAR(40),
-  discription VARCHAR(100),
-  price NUMERIC,
-  value INTEGER
+  firstname VARCHAR(60) NOT NULL ,
+  lastname VARCHAR(100) NOT NULL ,
+  email VARCHAR(50) NOT NULL UNIQUE ,
+  address VARCHAR(100) NOT NULL,
+  login VARCHAR(100) NOT NULL UNIQUE ,
+  hashPassword VARCHAR(100) NOT NULL
+
 );
 
-CREATE TABLE user_order (
+CREATE TABLE Basket (
+  id INTEGER NOT NULL,
+  productId INTEGER REFERENCES Product(id),
+  amount INTEGER
+);
+
+CREATE TABLE ProductCategory (
   id SERIAL PRIMARY KEY ,
-  order_article VARCHAR(40),
-  customer VARCHAR(20),
-  order_price NUMERIC,
-  order_date DATE
+  name VARCHAR(50)
+);
+
+CREATE TABLE Order (
+  id SERIAL PRIMARY KEY ,
+  customerId INTEGER REFERENCES Customer(id) NOT NULL ,
+  orderDate DATE NOT NULL,
+  customerAddress VARCHAR(100) NOT NULL ,
+  orderPrice decimal(10,2) NOT NULL
 );
