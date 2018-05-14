@@ -12,9 +12,21 @@ import java.util.List;
 public class CustomerRepositoryImpl implements CustomerRepository{
 
     //language=SQL
+    private static final String SQL_FIND_BY_ALL =
+            "SELECT * FROM customer";
+    //language=SQL
     private static final String SQL_FIND_BY_ID =
             "SELECT * FROM customer WHERE id=?";
-
+    //language=SQL
+    private static final String SQL_FIND_BY_LOGIN =
+            "SELECT * FROM customer WHERE login = ?";
+    //language=SQL
+    private static final String SQL_SAVE_CUSTOMER =
+            "INSERT INTO customer (login,hashpassword,firstname,lastname,email,address) " +
+                    "VALUES (?,?,?,?,?,?)";
+    //language=SQL
+    private static final String SQL_DELETE_CUSTOMER_BY_ID =
+            "DELETE FROM customer WHERE id = ?";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -38,16 +50,34 @@ public class CustomerRepositoryImpl implements CustomerRepository{
     };
     @Override
     public Customer find(int id) {
-        return null;
+        List<Customer> customers = jdbcTemplate.query(SQL_FIND_BY_ID,customerRowMapper,id);
+        if(customers.size() == 0)
+            return null;
+        else return customers.get(0);
     }
 
     @Override
     public List<Customer> findAll() {
-        return null;
+        return jdbcTemplate.query(SQL_FIND_BY_ALL, customerRowMapper);
     }
 
     @Override
     public void save(Customer model) {
+    jdbcTemplate.update(SQL_SAVE_CUSTOMER,model.getLogin(),model.getHashPassword(),model.getFirstName(),
+            model.getLastName(),model.getEmail(),model.getPhoneNumber(),model.getAddress());
+    }
 
+    @Override
+    public void delete(int id) {
+        jdbcTemplate.update(SQL_DELETE_CUSTOMER_BY_ID,customerRowMapper,id);
+    }
+
+    @Override
+    public Customer findByLogin(String login) {
+
+        List<Customer> customers = jdbcTemplate.query(SQL_FIND_BY_LOGIN,customerRowMapper,login);
+        if(customers.size() == 0)
+            return null;
+        else return customers.get(0);
     }
 }
