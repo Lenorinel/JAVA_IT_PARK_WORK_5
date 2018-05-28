@@ -12,4 +12,15 @@
         <servlet-name>helloServlet</servlet-name>
         <url-pattern>/hello</url-pattern>
     </servlet-mapping>
+<servlet>
+    <servlet-name>UsersServlet</servlet-name>
+    <servlet-class>ru.itpark.service.servlets.UsersServlet</servlet-class>
+</servlet>
+    <servlet-mapping>
+        <servlet-name>UsersServlet</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+    <listener>
+        <listener-class>ru.itpark.service.listeners.ServletsListenerForDBConnection</listener-class>
+    </listener>
 </web-app>

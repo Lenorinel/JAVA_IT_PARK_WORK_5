@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="models.Customer">
+
+        <id name="id" type="java.lang.Integer">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+
+        <property name="login"/>
+        <property name="hashPassword"/>
+        <property name="firstName"/>
+        <property name="lastName"/>
+        <property name="email"/>
+        <property name="phoneNumber"/>
+        <property name="address"/>
+
+       <bag name="orders">
+           <key>
+               <column name="customerId"/>
+           </key>
+           <one-to-many class="models.Order"/>
+       </bag>
+
+    </class>
+
+
+</hibernate-mapping>
+
+
+

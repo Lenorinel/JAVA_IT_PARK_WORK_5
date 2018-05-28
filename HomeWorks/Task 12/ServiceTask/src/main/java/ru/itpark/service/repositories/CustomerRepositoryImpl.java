@@ -64,7 +64,7 @@ public class CustomerRepositoryImpl implements CustomerRepository{
     @Override
     public void save(Customer model) {
     jdbcTemplate.update(SQL_SAVE_CUSTOMER,model.getLogin(),model.getHashPassword(),model.getFirstName(),
-            model.getLastName(),model.getEmail(),model.getPhoneNumber(),model.getAddress());
+            model.getLastName(),model.getEmail(),model.getAddress());
     }
 
     @Override
