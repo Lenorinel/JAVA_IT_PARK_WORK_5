@@ -8,7 +8,7 @@ import lombok.*;
 
 public class Good {
     private Integer id;
-    private String type;
+    private String type; //фотосессия, макияж+укладка, букет
     private String name;
     private String composition; //состав
     private String description; //описание

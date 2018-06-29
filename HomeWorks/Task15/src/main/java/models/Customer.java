@@ -26,6 +26,6 @@ public class Customer {
     private String email;
     private Integer phoneNumber;
     private String address;
-    @OneToMany(mappedBy = "customer")
+
     private List<Order> orders;
 }

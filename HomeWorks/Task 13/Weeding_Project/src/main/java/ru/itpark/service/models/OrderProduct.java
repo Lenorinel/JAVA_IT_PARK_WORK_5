@@ -5,7 +5,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 
-public class Basket {
-    private Integer id;
+public class OrderProduct {
+    private Order order;
     private Good good;
 }
